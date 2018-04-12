@@ -247,7 +247,9 @@ the news. (They've just queued up a bunch of listeners on the publish
 event instead.)
 ......................................................................*)
 
-fire_event newswire h4
+fire_event newswire h4 ;
+fire_event newswire h5 ;
+fire_event newswire h6 ;
 
 (* Nothing printed out unless fire publish event *)
 
@@ -259,4 +261,4 @@ out the headlines. You should see the headlines printed after
 the line above. 
 ......................................................................*)
 
-(* .. *)
+fire_event publish () ;
