@@ -158,7 +158,8 @@ Exercise 4: Given your implementation of Event, create a new event
 called "newswire" that should pass strings to the event handlers.
 ......................................................................*)
   
-let newswire = new_event ();;
+
+let newswire : string WEvent.event = WEvent.new_event () ;;
 
 (* News organizations might want to register event listeners to the
 newswire so that they might report on stories. Below are functions
@@ -213,7 +214,7 @@ Exercise 8: Create a new event called publish to signal that all
 stories should be published. The event should be a unit WEvent.event.
 ......................................................................*)
 
-let publish = fun _ -> failwith "publish not implemented" ;; 
+let publish : unit WEvent.event = WEvent.new_event () ;; 
 
 (*......................................................................
 Exercise 9: Write a function receive_report to handle new news
@@ -224,14 +225,14 @@ by registering appropriate listeners, one for each news network,
 waiting for the publish event.
 ......................................................................*)
 
-let receive_report = fun _ -> failwith "report not implemented";;
+let receive_report (s: string)  = let _ = add_listener publish (fun () -> Print.printf s) in ();;
 
 (*......................................................................
 Exercise 10: Register the receieve_report listener to listen for the
 newswire event.
 ......................................................................*)
 
-(* .. *)
+add_listener newswire receive_report
 
 (* Here are some new headlines to use for testing this part. *)
 
@@ -246,7 +247,9 @@ the news. (They've just queued up a bunch of listeners on the publish
 event instead.)
 ......................................................................*)
 
-(* .. *)
+fire_event newswire h4
+
+(* Nothing printed out unless fire publish event *)
 
 print_string "Moved to publication.\n" ;;
 
